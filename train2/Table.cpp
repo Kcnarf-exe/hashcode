@@ -37,7 +37,7 @@ vector<string> Table::split(string str, char delimiter) {
 }
 
 int Table::getIngredientId(string ingredient) {
-    bool found = this->ingredientsToId.find(ingredient) == this->ingredientsToId.end();
+    bool found = this->ingredientsToId.find(ingredient) != this->ingredientsToId.end();
     if (found){
         return this->ingredientsToId.at(ingredient);
     }
