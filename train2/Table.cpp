@@ -40,20 +40,41 @@ vector<int> Table::greedy(int teamNumber){
   vector<int> solution;
   int scoreIngredients = 0;
 
-  int indexFirstPizza = 0;
-  //Pizza* firstPizza = new Pizza(0,NULL);
+  int indexFirstPizza = -1;
   int scorePizza = 0;
 
   for(int i=0; i<pizzas.size();++i){ //Select the first pizza with the most ingredients in it
     if(pizzas[i]->getNumber()>scorePizza){
+      scorePizza = pizzas[i]->getNumber();
       indexFirstPizza = i;
     }
   }
 
-  for(int i=1; i<=teamNumber;++i){
+  vector<int> indexList = {indexFirstPizza};
+  int scoreTotal = scorePizza;
+  vector<int> listIngredients = pizzas[indexFirstPizza]->getIngredients();
 
+  for(int i=1; i<=teamNumber;++i){
+    indexList.push_back(0);
+
+    int scoreLocal = 0;
+    int scoreSaved = 0;
+    int indexSaved = -1;
+    for(int i=0; i<pizzas.size();++i){
+      scoreLocal = scorePizza(listIngredients,i);
+      if(scoreLocal > scoreSaved){ 
+        scoreSaved = scoreLocal; 
+        indexSaved = i;
+      }
+    }
+
+    scoreTotal += scoreSaved;
   }
 
+  solution.push_back(scoreTotal);
+  for(int i=0;i<indexList.size();++i){
+    solution.push_back(indexList[i]);
+  }
 
   return solution;
 }
@@ -68,3 +89,8 @@ int Table::getIngredientId(string ingredient) {
     return ingredientIdCounter-1;
 
 }
+
+ int Table::scorePizza(vector<int>listIngredients, int indexPizza){
+   
+
+ }

@@ -23,5 +23,6 @@ class Table {
         vector<string> split(string str, char delimiter);
         vector<int> greedy(int teamNumber); //Return vector<int>[numberOfDiffIngredient, listPizzas of the solution (5,2,10)]
         int getIngredientId(string ingredient);
+        int scorePizza(vector<int>listIngredients, int indexPizza);
 
 }
