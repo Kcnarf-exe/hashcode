@@ -28,5 +28,4 @@ class Table {
         int getT4();
         map<string, int> getIngredientToIdMap();
         Pizza* getPizza(int id);
-
-}
+;

@@ -11,4 +11,4 @@ class Pizza {
         Pizza(int number, vector<int> ingredients);
         int getNumber();
         vector<int> getIngredients();
-}
+};

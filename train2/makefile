@@ -1,10 +1,12 @@
 CPPFLAG=g++
-EXEC=main
+EXEC=main testScore
 
 all: $(EXEC)
 
 main: main.o
 	$(CPPFLAG) -o $@ $^
+testScore: testScore.o
+	$(CPPFLAG) -o $@ $^ 
 %.o: %.cpp
 	$(CPPFLAG) -o $@ -c $^
 clean:

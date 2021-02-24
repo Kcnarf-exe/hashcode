@@ -16,4 +16,4 @@ class Score {
         Score(string inputFile, string outputFile);
         int generateScore();
 
-}
+};

@@ -7,11 +7,13 @@ Score::Score(string inputFile, string outputFile) {
 }
 
 int Score::generateScore() {
+    // On créer une instance de problème
     Table table = Table(inputFile);
     int M = table.getM();
     int T2 = table.getT2();
     int T3 = table.getT3();
     int T4 = table.getT4();
+    // On check l'output
     ifstream file(outputFile);
     string firstLine;
     getline(file, firstLine);
@@ -57,6 +59,18 @@ int Score::generateScore() {
 
     if (count != D) {
         cout << "D not equal to the sum of all pizzas" << endl;
+        return -1;
+    }
+    if (countT2 > T2) {
+        cout << "Too much pizzas delivered to teams of 2" << endl;
+        return -1;
+    }
+    if (countT3 > T3) {
+        cout << "Too much pizzas delivered to teams of 3" << endl;
+        return -1;
+    }
+    if (countT4 > T4) {
+        cout << "Too much pizzas delivered to teams of 4" << endl;
         return -1;
     }
     return score;

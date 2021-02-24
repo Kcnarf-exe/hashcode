@@ -10,4 +10,4 @@ using namespace std;
 class StringHandler {
     public :
         static vector<string> split(string str, char del);
-}
+};
