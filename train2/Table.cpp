@@ -143,9 +143,9 @@ Pizza *Table::getPizza(int id)
 }
 
 int Table::scorePizza(set<int> ingredients, Pizza* pizza) {
-    int init = ingredients.size();
     set<int> res(ingredients);
     for (int ingredientId: pizza->getIngredients()) {
       res.insert(ingredientId);
     }
+    return res.size() - ingredients.size();
 }
