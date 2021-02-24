@@ -18,5 +18,6 @@ class Table {
     public :
         Table(string inputFile);
         vector<string> split(string str, char delimiter);
+        vector<int> greedy(int teamNumber); //Return vector<int>[numberOfDiffIngredient, listPizzas of the solution (5,2,10)]
 
 }

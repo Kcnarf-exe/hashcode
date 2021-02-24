@@ -35,3 +35,25 @@ vector<string> Table::split(string str, char delimiter) {
  
   return internal; 
 }
+
+vector<int> Table::greedy(int teamNumber){
+  vector<int> solution;
+  int scoreIngredients = 0;
+
+  int indexFirstPizza = 0;
+  //Pizza* firstPizza = new Pizza(0,NULL);
+  int scorePizza = 0;
+
+  for(int i=0; i<pizzas.size();++i){ //Select the first pizza with the most ingredients in it
+    if(pizzas[i]->getNumber()>scorePizza){
+      indexFirstPizza = i;
+    }
+  }
+
+  for(int i=1; i<=teamNumber;++i){
+
+  }
+
+
+  return solution;
+}
