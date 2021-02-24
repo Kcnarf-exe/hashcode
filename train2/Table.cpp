@@ -47,8 +47,8 @@ Table::Table(string inputFile)
 
 int Table::getIngredientId(string ingredient)
 {
-  bool found = this->ingredientsToId.find(ingredient) == this->ingredientsToId.end();
-  if (!found)
+  bool found = this->ingredientsToId.find(ingredient) != this->ingredientsToId.end();
+  if (found)
   {
     return this->ingredientsToId.at(ingredient);
   }
@@ -80,13 +80,11 @@ vector<int> Table::greedy(int teamNumber){
   int scoreTotal = scoreFirstPizza;
   set<int> listIngredients = pizzas[indexFirstPizza]->getIngredients();
 
-  for(int i=1; i<=teamNumber;++i){
-    indexList.push_back(0);
-
+  for(int i=1; i<teamNumber;++i){
     int scoreLocal = 0;
-    int scoreSaved = 0;
-    int indexSaved = -1;
-    for(int j=0; j<pizzas.size();++j){
+    int scoreSaved = scorePizza(listIngredients, pizzas[0]);
+    int indexSaved = 0;
+    for(int j=1; j<pizzas.size();++j){
       scoreLocal = scorePizza(listIngredients, pizzas[j]);
       if(scoreLocal > scoreSaved){ 
         scoreSaved = scoreLocal; 
@@ -99,7 +97,7 @@ vector<int> Table::greedy(int teamNumber){
     }
 
     scoreTotal += scoreSaved;
-    indexList[i] = indexSaved;
+    indexList.push_back(indexSaved);
   }
 
   solution.push_back(scoreTotal);
@@ -110,16 +108,6 @@ vector<int> Table::greedy(int teamNumber){
   return solution;
 }
 
-int Table::getIngredientId(string ingredient) {
-    bool found = this->ingredientsToId.find(ingredient) == this->ingredientsToId.end();
-    if (found){
-        return this->ingredientsToId.at(ingredient);
-    }
-    this->ingredientsToId[ingredient] = ingredientIdCounter;
-    ingredientIdCounter++;
-    return ingredientIdCounter-1;
-
-}
 
 
 int Table::getT2()
@@ -167,7 +155,7 @@ string Table::teamLine( int teamNumber, vector<int> y){
 string Table::teamString(int teamNumber, int x, vector<int> y){
     string teamLinePizza = teamLine(teamNumber, y);
     string result = "";
-    for(int i=0;i<x-1;++i){
+    for(int i=0;i<x;++i){
         result += teamLinePizza +"\n";
     }
     return result;
@@ -177,8 +165,14 @@ string Table::teamString(int teamNumber, int x, vector<int> y){
 bool Table::outputFunction(int x2, int x3, int x4, vector<int> y2, vector<int> y3, vector<int> y4){
     bool isCorrect = true;
     int numberTeamsDelivered = x2+x3+x4;
-    ofstream outputFile;
-    outputFile.open("outputFile.txt");
+
+    cout <<"Output..." << endl;
+    ofstream file("hello.txt");
+    file << "hi" << endl;
+    file.close();
+
+
+    ofstream outputFile("outputFile.txt");
     outputFile << to_string(numberTeamsDelivered) + "\n"; //Write the number of teams delivered
 
     outputFile << teamString(2, x2, y2);
@@ -188,6 +182,43 @@ bool Table::outputFunction(int x2, int x3, int x4, vector<int> y2, vector<int> y
     outputFile.close();
 
     return isCorrect; 
+}
+
+void Table::solve(){
+  vector<vector<int>> teamSolution;
+  for (int i = 2; i <= 4; i++) {
+    teamSolution.push_back(greedy(i));
+  }
+  
+  int x2;
+  int x3;
+  int x4;
+
+  int available = M;
+
+  x4 = min(available/4, T4);
+  cout << "x4 "<< x4 << endl;
+  available = available-4*x4;
+
+  x3 = min(available/3, T3);
+  cout << "x3 "<< x3 << endl;
+  available = available - 3*x3;
+
+  x2 = min(available/2, T2);
+  cout << "x2 "<< x2 << endl;
+  available = available - 2*x2;
+
+  vector<int> y4 = teamSolution[2];
+  y4.erase(y4.begin());
+
+  vector<int> y3 = teamSolution[1];
+  y3.erase(y3.begin());
+
+  vector<int> y2 = teamSolution[0];
+  y2.erase(y2.begin());
+
+  cout << outputFunction(x2,x3,x4,y2,y3,y4) << endl;
+
 }
 
 
