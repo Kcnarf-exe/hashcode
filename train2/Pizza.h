@@ -6,9 +6,9 @@ using namespace std;
 class Pizza {
     private:
         int numberOfIngredients;
-        vector<string> ingredients;
+        vector<int> ingredients;
     public :
-        Pizza(int number, vector<string> ingredients);
+        Pizza(int number, vector<int> ingredients);
         int getNumber();
-        vector<string> getIngredients();
+        vector<int> getIngredients();
 }

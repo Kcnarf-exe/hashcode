@@ -57,3 +57,14 @@ vector<int> Table::greedy(int teamNumber){
 
   return solution;
 }
+
+int Table::getIngredientId(string ingredient) {
+    bool found = this->ingredientsToId.find(ingredient) == this->ingredientsToId.end();
+    if (found){
+        return this->ingredientsToId.at(ingredient);
+    }
+    this->ingredientsToId[ingredient] = ingredientIdCounter;
+    ingredientIdCounter++;
+    return ingredientIdCounter-1;
+
+}
