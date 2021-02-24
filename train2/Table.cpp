@@ -67,18 +67,18 @@ vector<int> Table::greedy(int teamNumber){
   int scoreIngredients = 0;
 
   int indexFirstPizza = -1;
-  int scorePizza = 0;
+  int scoreFirstPizza = 0;
 
   for(int i=0; i<pizzas.size();++i){ //Select the first pizza with the most ingredients in it
-    if(pizzas[i]->getNumber()>scorePizza){
-      scorePizza = pizzas[i]->getNumber();
+    if(pizzas[i]->getNumber()>scoreFirstPizza){
+      scoreFirstPizza = pizzas[i]->getNumber();
       indexFirstPizza = i;
     }
   }
 
   vector<int> indexList = {indexFirstPizza};
-  int scoreTotal = scorePizza;
-  vector<int> listIngredients = pizzas[indexFirstPizza]->getIngredients(); // MAKE A SET ?
+  int scoreTotal = scoreFirstPizza;
+  set<int> listIngredients = pizzas[indexFirstPizza]->getIngredients();
 
   for(int i=1; i<=teamNumber;++i){
     indexList.push_back(0);
@@ -87,13 +87,16 @@ vector<int> Table::greedy(int teamNumber){
     int scoreSaved = 0;
     int indexSaved = -1;
     for(int j=0; j<pizzas.size();++j){
-      scoreLocal = scorePizza(listIngredients,j);
+      scoreLocal = scorePizza(listIngredients, pizzas[j]);
       if(scoreLocal > scoreSaved){ 
         scoreSaved = scoreLocal; 
         indexSaved = j;
       }
     }
-    //Update the ingredients list with the addition of the new pizza
+
+    for (int ingredientId: pizzas[indexSaved]->getIngredients()) {
+      listIngredients.insert(ingredientId);
+    }
 
     scoreTotal += scoreSaved;
     indexList[i] = indexSaved;
