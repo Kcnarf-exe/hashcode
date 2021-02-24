@@ -25,4 +25,10 @@ public:
     Table(string inputFile);
     vector<string> split(string str, char delimiter);
     int getIngredientId(string ingredient);
+    int getM();
+    int getT2();
+    int getT3();
+    int getT4();
+    map<string, int> getIngredientToIdMap();
+    Pizza *getPizza(int id);
 };

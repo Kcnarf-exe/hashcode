@@ -1,6 +1,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <set>
+#include <cmath>
+#include "Table.h"
 
 using namespace std;
 
@@ -13,6 +16,5 @@ private:
 
 public:
     Score(string inputFile, string outputFile);
-    void generateScore();
-    int getScore();
+    int generateScore();
 };
