@@ -46,3 +46,27 @@ int Table::getIngredientId(string ingredient) {
     return ingredientIdCounter-1;
 
 }
+
+int Table::getM() {
+    return this->M;
+}
+
+int Table::getT2() {
+    return this->T2;
+}
+
+int Table::getT3() {
+    return this->T3;
+}
+
+int Table::getT4() {
+    return this->T4;
+}
+
+map<string, int> Table::getIngredientToIdMap(){
+    return ingredientsToId;
+}
+
+Pizza* Table::getPizza(int id) {
+    return pizzas[id];
+}
