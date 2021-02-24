@@ -1,4 +1,4 @@
-#include <vector>
+#include <set>
 #include <string>
 
 using namespace std;
@@ -7,10 +7,10 @@ class Pizza
 {
 private:
     int numberOfIngredients;
-    vector<int> ingredients;
+    set<int> ingredients;
 
 public:
-    Pizza(int number, vector<int> ingredients);
+    Pizza(int number, set<int> ingredients);
     int getNumber();
-    vector<int> getIngredients();
+    set<int> getIngredients();
 };

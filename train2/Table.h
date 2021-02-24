@@ -31,4 +31,5 @@ public:
     map<string, int> getIngredientToIdMap();
     Pizza *getPizza(int id);
     vector<int> greedy(int teamNumber);
+    int scorePizza(set<int> ingredients, Pizza* pizza);
 };

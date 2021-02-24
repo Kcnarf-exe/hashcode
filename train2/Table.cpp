@@ -30,15 +30,14 @@ Table::Table(string inputFile)
   int counter = this->M;
   int count;
   string str;
-  vector<int> vi;
   while (counter--)
   {
     cin >> count;
-    vi.clear();
+    set<int> vi;
     for (int i = 0; i < count; i++)
     {
       cin >> str;
-      vi.push_back(getIngredientId(str));
+      vi.insert(getIngredientId(str));
     }
     pizza = new Pizza(count, vi);
     this->pizzas.push_back(pizza);
@@ -143,4 +142,12 @@ map<string, int> Table::getIngredientToIdMap()
 Pizza *Table::getPizza(int id)
 {
   return pizzas[id];
+}
+
+int Table::scorePizza(set<int> ingredients, Pizza* pizza) {
+    int init = ingredients.size();
+    set<int> res(ingredients);
+    for (int ingredientId: pizza->getIngredients()) {
+      res.insert(ingredientId);
+    }
 }
