@@ -42,23 +42,9 @@ Table::Table(string inputFile)
     }
     pizza = new Pizza(count, vi);
     this->pizzas.push_back(pizza);
-    cout << pizza->getIngredients().at(0) << "\n";
   }
 }
 
-vector<string> Table::split(string str, char delimiter)
-{
-  vector<string> internal;
-  stringstream ss(str); // Turn the string into a stream.
-  string tok;
-
-  while (getline(ss, tok, delimiter))
-  {
-    internal.push_back(tok);
-  }
-
-  return internal;
-}
 
 int Table::getIngredientId(string ingredient)
 {

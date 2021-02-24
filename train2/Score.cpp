@@ -27,10 +27,10 @@ int Score::generateScore() {
     vector<string> info;
     Pizza* pizza;
     int teamNumber;
-    int count;
-    int countT2;
-    int countT3;
-    int countT4;
+    int count = 0;
+    int countT2 = 0;
+    int countT3 = 0;
+    int countT4 = 0;
 
     this->score = 0;
 
