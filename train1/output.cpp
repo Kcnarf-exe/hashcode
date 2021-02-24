@@ -24,10 +24,10 @@ string teamString(int teamNumber, int x, vector<int> y){
 
 bool outputFunction(int x2, int x3, int x4, vector<int> y2, vector<int> y3, vector<int> y4){
     bool isCorrect = true;
-    int numberPizzaDelivered = x2+x3+x4;
+    int numberTeamsDelivered = x2+x3+x4;
     ofstream outputFile;
     outputFile.open("outputFile.txt");
-    outputFile << to_string(numberPizzaDelivered) + "\n"; //Write the number of pizza delivered
+    outputFile << to_string(numberTeamsDelivered) + "\n"; //Write the number of teams delivered
 
     outputFile << teamString(2, x2, y2);
     outputFile << teamString(3, x3, y3);

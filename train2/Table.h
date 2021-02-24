@@ -32,4 +32,7 @@ public:
     Pizza *getPizza(int id);
     vector<int> greedy(int teamNumber);
     int scorePizza(set<int> ingredients, Pizza* pizza);
+    string teamLine( int teamNumber, vector<int> y);
+    string teamString(int teamNumber, int x, vector<int> y);
+    bool outputFunction(int x2, int x3, int x4, vector<int> y2, vector<int> y3, vector<int> y4);
 };

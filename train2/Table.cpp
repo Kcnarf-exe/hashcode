@@ -154,3 +154,40 @@ int Table::scorePizza(set<int> ingredients, Pizza* pizza) {
     }
     return res.size() - ingredients.size();
 }
+
+
+string Table::teamLine( int teamNumber, vector<int> y){
+    string result = to_string(teamNumber);
+    for(int i=0; i<y.size();++i){
+        result += " "+to_string(y[i]);
+    }
+    return result;
+}
+
+string Table::teamString(int teamNumber, int x, vector<int> y){
+    string teamLinePizza = teamLine(teamNumber, y);
+    string result = "";
+    for(int i=0;i<x-1;++i){
+        result += teamLinePizza +"\n";
+    }
+    return result;
+}
+
+
+bool Table::outputFunction(int x2, int x3, int x4, vector<int> y2, vector<int> y3, vector<int> y4){
+    bool isCorrect = true;
+    int numberTeamsDelivered = x2+x3+x4;
+    ofstream outputFile;
+    outputFile.open("outputFile.txt");
+    outputFile << to_string(numberTeamsDelivered) + "\n"; //Write the number of teams delivered
+
+    outputFile << teamString(2, x2, y2);
+    outputFile << teamString(3, x3, y3);
+    outputFile << teamString(4, x4, y4);
+
+    outputFile.close();
+
+    return isCorrect; 
+}
+
+
