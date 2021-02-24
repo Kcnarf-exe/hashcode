@@ -79,7 +79,7 @@ vector<int> Table::greedy(int teamNumber){
 
   vector<int> indexList = {indexFirstPizza};
   int scoreTotal = scorePizza;
-  vector<int> listIngredients = pizzas[indexFirstPizza]->getIngredients();
+  vector<int> listIngredients = pizzas[indexFirstPizza]->getIngredients(); // MAKE A SET ?
 
   for(int i=1; i<=teamNumber;++i){
     indexList.push_back(0);
@@ -87,15 +87,17 @@ vector<int> Table::greedy(int teamNumber){
     int scoreLocal = 0;
     int scoreSaved = 0;
     int indexSaved = -1;
-    for(int i=0; i<pizzas.size();++i){
-      scoreLocal = scorePizza(listIngredients,i);
+    for(int j=0; j<pizzas.size();++j){
+      scoreLocal = scorePizza(listIngredients,j);
       if(scoreLocal > scoreSaved){ 
         scoreSaved = scoreLocal; 
-        indexSaved = i;
+        indexSaved = j;
       }
     }
+    //Update the ingredients list with the addition of the new pizza
 
     scoreTotal += scoreSaved;
+    indexList[i] = indexSaved;
   }
 
   solution.push_back(scoreTotal);
