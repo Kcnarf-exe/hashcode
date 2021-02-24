@@ -3,7 +3,7 @@ EXEC=main testScore
 
 all: $(EXEC)
 
-main: main.o
+main: main.o Pizza.o Table.o
 	$(CPPFLAG) -o $@ $^
 testScore: testScore.o
 	$(CPPFLAG) -o $@ $^ 

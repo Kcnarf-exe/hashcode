@@ -1,14 +1,17 @@
 #include "Pizza.h"
 
-Pizza::Pizza(int number, vector<string> ingredients) {
+Pizza::Pizza(int number, vector<int> ingredients)
+{
     this->numberOfIngredients = number;
     this->ingredients = ingredients;
 }
 
-int Pizza::getNumber() {
+int Pizza::getNumber()
+{
     return numberOfIngredients;
 }
 
-vector<string> Pizza::getIngredients(){
+vector<int> Pizza::getIngredients()
+{
     return ingredients;
 }
