@@ -23,7 +23,6 @@ private:
 
 public:
     Table(string inputFile);
-    vector<string> split(string str, char delimiter);
     int getIngredientId(string ingredient);
     int getM();
     int getT2();
