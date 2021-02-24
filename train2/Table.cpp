@@ -42,7 +42,6 @@ Table::Table(string inputFile)
     }
     pizza = new Pizza(count, vi);
     this->pizzas.push_back(pizza);
-    cout << pizza->getIngredients().at(0) << "\n";
   }
 }
 
