@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <bits/stdc++.h>
+#include <map>
 
 #include "Pizza.h"
 
@@ -17,8 +18,11 @@ private:
     int T3;
     int T4;
     vector<Pizza *> pizzas;
+    map<string, int> ingredientsToId;
+    int ingredientIdCounter;
 
 public:
     Table(string inputFile);
     vector<string> split(string str, char delimiter);
-}
+    int getIngredientId(string ingredient);
+};

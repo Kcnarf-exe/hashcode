@@ -24,7 +24,26 @@ Table::Table(string inputFile)
 
   ios::sync_with_stdio(0);
   cin.tie(0);
-  freopen(inputFile, "r", stdin);
+  freopen(inputFile.c_str(), "r", stdin);
+  cin >> this->M >> this->T2 >> this->T3 >> this->T4;
+  Pizza *pizza;
+  int counter = this->M;
+  int count;
+  string str;
+  vector<int> vi;
+  while (counter--)
+  {
+    cin >> count;
+    vi.clear();
+    for (int i = 0; i < count; i++)
+    {
+      cin >> str;
+      vi.push_back(getIngredientId(str));
+    }
+    pizza = new Pizza(count, vi);
+    this->pizzas.push_back(pizza);
+    cout << pizza->getIngredients().at(0) << "\n";
+  }
 }
 
 vector<string> Table::split(string str, char delimiter)
@@ -39,4 +58,16 @@ vector<string> Table::split(string str, char delimiter)
   }
 
   return internal;
+}
+
+int Table::getIngredientId(string ingredient)
+{
+  bool found = this->ingredientsToId.find(ingredient) == this->ingredientsToId.end();
+  if (!found)
+  {
+    return this->ingredientsToId.at(ingredient);
+  }
+  this->ingredientsToId[ingredient] = ingredientIdCounter;
+  ingredientIdCounter++;
+  return ingredientIdCounter - 1;
 }

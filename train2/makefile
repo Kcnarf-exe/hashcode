@@ -3,7 +3,7 @@ EXEC=main
 
 all: $(EXEC)
 
-main: main.o
+main: main.o Pizza.o Table.o
 	$(CPPFLAG) -o $@ $^
 %.o: %.cpp
 	$(CPPFLAG) -o $@ -c $^

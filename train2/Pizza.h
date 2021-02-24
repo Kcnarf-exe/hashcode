@@ -3,12 +3,14 @@
 
 using namespace std;
 
-class Pizza {
-    private:
-        int numberOfIngredients;
-        vector<string> ingredients;
-    public :
-        Pizza(int number, vector<string> ingredients);
-        int getNumber();
-        vector<string> getIngredients();
-}
+class Pizza
+{
+private:
+    int numberOfIngredients;
+    vector<int> ingredients;
+
+public:
+    Pizza(int number, vector<int> ingredients);
+    int getNumber();
+    vector<int> getIngredients();
+};
