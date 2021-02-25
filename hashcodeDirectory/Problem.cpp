@@ -70,7 +70,18 @@ bool Problem::writeOutput()
     ofstream output(this->outputFile);
 
     int A = getNumberOfIntersectionsWithSchedule();
-
+    Intersection* intersection;
+    for (int i = 0; i < this->I; i++) {
+        intersection = intersectionsMap[i];
+        if (!intersection->getSchedule().empty()) {
+            output << i << endl;
+            output << to_string(intersection->getSchedule().size()) << endl;
+            for (pair<int,int> pairValues: intersection->getSchedule()) {
+                cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
+            }
+        }
+    }
+    
     // Close outputFile and return true if no problem
     output.close();
     return true;
@@ -78,9 +89,10 @@ bool Problem::writeOutput()
 
 int Problem::getNumberOfIntersectionsWithSchedule() {
     int sum = 0;
-    for (Intersection intersection: this->intersections) {
-        if (intersection->getSchedule()){
-            
+    for (Intersection* intersection: this->intersections) {
+        if (!intersection->getSchedule().empty()){
+            sum++;
         }
     }
+    return sum;
 }
