@@ -1,6 +1,7 @@
 #include "Intersection.h"
 
-Intersection::Intersection(unordered_set<int> inputStreetIds, unordered_set<int> outputStreetIds) {
+Intersection::Intersection(int id, unordered_set<int> inputStreetIds, unordered_set<int> outputStreetIds) {
+    this->id = id;
     this->inputStreetIds = inputStreetIds;
     this->outputStreetIds = outputStreetIds;
 }
