@@ -116,7 +116,7 @@ bool Problem::solve()
     for (Intersection* intersection : this->intersections) {
         if (!intersection->getSchedule().empty()) {
             intersection->changeGreenLightId(intersection->getSchedule()[0].first);
-            intersection->setTimeLight(intersection->getSchedule()[0].second)
+            intersection->setTimeLight(intersection->getSchedule()[0].second);
         } else {
             intersection->changeGreenLightId(-1);
             intersection->setTimeLight(0);
@@ -168,7 +168,7 @@ bool Problem::solve()
             }
         }
    
-
+    }
     score = currentScore;
     // Return true if no problem
     return true;
