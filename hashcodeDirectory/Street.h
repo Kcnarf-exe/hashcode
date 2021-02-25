@@ -7,11 +7,11 @@ class Street
 private:
     int start;
     int end;
-    string name;
+    int id;
 
 public:
-    Street(int start, int end, string name);
+    Street(int start, int end, int id);
     int getStart();
     int getEnd();
-    string getName();
+    int getId();
 };
