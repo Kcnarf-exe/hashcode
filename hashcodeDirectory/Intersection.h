@@ -11,6 +11,9 @@ class Intersection {
         unordered_set<int> outputStreetIds;
         vector<pair<int,int>> schedule; // (streetId, duration)  : pattern to repeat until the end of the simalution
         int currentGreenLightId;
+        bool open = true;
+        int timeLight;
+        int stepStreet = 0;
     public :
         Intersection(int id);
         void addInputStreet(int inputStreetId);
@@ -19,4 +22,11 @@ class Intersection {
         int getGreenLightId();
         void addGreenLightSchedule(int incomingStreetId, int duration);        
         vector<pair<int,int>> getSchedule();
+        bool isOpen();
+        void setOpen(bool open);
+        void decrementTimeLight();
+        int getTimeLight();
+        void nextStreet();
+        void setTimeLight(int timeLight);
+
 };  

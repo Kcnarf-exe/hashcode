@@ -19,3 +19,20 @@ void Car::decrementTimeTransition(){
     if(timeTransition>0){--timeTransition;}
 }
 
+int Car::getStepStreet() {
+    return this->stepStreet;
+}
+
+void Car::incrementStepStreet(){
+    this->stepStreet++;
+}
+
+bool Car::isArrived() {
+    return this->arrived;
+}
+
+void Car::setArrived(bool arrived) {
+    this->arrived = arrived;
+}
+
+

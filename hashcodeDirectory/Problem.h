@@ -25,7 +25,7 @@ private:
     map<int, Intersection *> intersectionsMap;
 
     /* attributes for the solution (needed to write output) */
-
+    int score;
 public:
     Problem(string inputFile);
     Problem(string inputFile, string outputFile);
