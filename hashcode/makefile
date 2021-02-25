@@ -1,8 +1,10 @@
 CPPFLAG=g++
-EXEC=main
+EXEC=main evaluate
 
 all: $(EXEC)
 
+evaluate: evaluate.o Problem.o Score.o
+	$(CPPFLAG) -o $@ $^
 main: main.o Problem.o
 	$(CPPFLAG) -o $@ $^
 %.o: %.cpp

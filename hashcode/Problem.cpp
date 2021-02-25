@@ -1,5 +1,10 @@
 #include "Problem.h"
 
+
+Problem::Problem(string inputFile) {
+    this->inputFile = inputFile;
+}
+
 Problem::Problem(string inputFile, string outputFile) {
     this->inputFile = inputFile;
     this->outputFile = outputFile;
@@ -41,6 +46,12 @@ bool Problem::solve() {
  * @return true if no problem, false otherwise
  */
 bool Problem::writeOutput() {
+    // Check if we have an output file
+    if (this->outputFile.empty()){
+        cout << "Output file not defined" << endl;
+        return false;
+    }
+
     // Create and open outputfile
     ofstream output(this->outputFile);
 
