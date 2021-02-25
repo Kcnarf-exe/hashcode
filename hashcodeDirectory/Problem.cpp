@@ -26,16 +26,46 @@ bool Problem::readInputFile()
     cin >> this->D >> this->I >> this->S >> this->V >> this->F;
 
     Intersection *intersection;
+    Street *street;
+    string str;
 
     int counter = this->S;
+    int B, E;
 
     while (counter--)
     {
+        cin >> B >> E;
+
+        if (this->intersectionsMap.find(B) == this->instersectionsMap.end())
+        {
+            intersection = new Intersection(B);
+            intersectionsMap.insert({B, intersection});
+        }
+
+        if (this->intersectionsMap.find(E) == this->instersectionsMap.end())
+        {
+            intersection = new Intersection(E);
+            intersectionsMap.insert({E, intersection});
+        }
+
+        cin >> str;
     }
 
     // Close file and return true if no problem
     // Close file
     return true;
+}
+
+int Problem::getSteetId(string street)
+{
+    bool found = this->streetToId.find(street) != this->streetToId.end();
+    if (found)
+    {
+        return this->streetToId.at(street);
+    }
+    this->streetToId[street] = streetIdCounter;
+    streetIdCounter++;
+    return streetIdCounter - 1;
 }
 
 /**

@@ -18,9 +18,11 @@ private:
     int S;
     int V;
     int F;
-    vector<Street*> streets;
-    vector<Car*> cars;
-    vector<Intersection*> intersections;
+    map<string, int> streetsToId;
+    vector<Street *> streets;
+    vector<Car *> cars;
+    vector<Intersection *> intersections;
+    map<int, Intersection *> intersectionsMap;
 
     /* attributes for the solution (needed to write output) */
 
@@ -30,6 +32,7 @@ public:
     bool readInputFile();
     bool solve();
     bool writeOutput();
+    int getStreetId(string street);
 
     // For output
     int getNumberOfIntersectionsWithSchedule();
