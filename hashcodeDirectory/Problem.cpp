@@ -140,7 +140,7 @@ bool Problem::solve()
         car->setIdStreet(car->getListOfStreets()[0]);
         car->setTimeTransition(0);
     }
-    
+
 
     int currentScore = 0;
 
