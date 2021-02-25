@@ -4,6 +4,7 @@
 #include <vector>
 #include "Street.h"
 #include "Intersection.h"
+#include "Car.h"
 
 using namespace std;
 
