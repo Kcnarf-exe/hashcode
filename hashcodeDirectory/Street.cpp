@@ -1,16 +1,21 @@
 #include "Street.h"
 
-Street::Street(Intersection start, Intersection end)
+Street::Street(int start, int end, string name)
 {
     this->start = start;
     this->end = end;
+    this->name = name;
 }
 
-Intersection Street::getStart()
+int Street::getStart()
 {
     return this->start;
 }
-Intersection Street::getEnd()
+int Street::getEnd()
 {
     return this->end;
+}
+string Street::getName()
+{
+    return this->name;
 }
