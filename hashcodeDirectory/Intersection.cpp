@@ -28,6 +28,37 @@ vector<pair<int,int>> Intersection::getSchedule() {
     return schedule;
 }
 
+bool Intersection::isOpen() {
+    return this->open;
+}
+
+void Intersection::setOpen(bool open) {
+    this->open = open;
+}
+
+
+void Intersection::decrementTimeLight(){
+    if (this->timeLight > 0){
+        this->timeLight --;
+    }
+}
+int Intersection::getTimeLight() {
+    return this->timeLight;
+}
+void Intersection::nextStreet(){
+    if (this->schedule.size()-1 == this->stepStreet) {
+        stepStreet = 0;
+    } else {
+        stepStreet ++;
+    }
+    this->changeGreenLightId(this->schedule[stepStreet].first);
+    this->setTimeLight(this->schedule[stepStreet].second);
+
+}
+
+
+void Intersection::setTimeLight(int timeLight){
+    this->timeLight = timeLight;
 void Intersection::generateSchedule(vector<int> counterStreets, int duration){
     vector<pair<int,int>> localSchedule;
     int totalDurationSchedule = 0;
