@@ -2,10 +2,12 @@
 
 using namespace std;
 
-class Car {
-    private :
-        int numberOfStreets;
-        vector<int> listOfStreets;
+class Car
+{
+private:
+    int numberOfStreets;
+    int minTime;
+    vector<int> listOfStreets; //Contain all id of the street it has to cross
 
         //Variable pour la simu
         int timeTransition; //Si =0 elle est a l intersection a la fin de la rue actuel
@@ -13,10 +15,13 @@ class Car {
         int stepStreet = 0;
         bool arrived = false;
 
-    public :
-        Car(int numberOfStreets, vector<int> listStreets);
-        int getNumberOfStreets();
-        vector<int> getListOfStreets();
+public:
+    Car(int numberOfStreets, vector<int> listStreets, int minTime);
+    int getMinTime();
+    int getNumberOfStreets();
+    vector<int> getListOfStreets();
+    int getIdStreet();
+    void setIdStreet(int id);
 
         int getIdStreet();
         void setIdStreet(int id);

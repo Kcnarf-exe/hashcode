@@ -59,4 +59,23 @@ void Intersection::nextStreet(){
 
 void Intersection::setTimeLight(int timeLight){
     this->timeLight = timeLight;
+void Intersection::generateSchedule(vector<int> counterStreets, int duration){
+    vector<pair<int,int>> localSchedule;
+    int totalDurationSchedule = 0;
+    for(int i=0;i<counterStreets.size();++i){
+        if( this->inputStreetIds.find(i) != this->inputStreetIds.end() ){
+            pair<int,int> entrySChedule (i,counterStreets[i]);
+            totalDurationSchedule += counterStreets[i];
+            localSchedule.push_back(entrySChedule);
+        }
+    }
+
+    if(totalDurationSchedule > duration){ //If there is not enough time to apply the schedule
+        for(int i=0;i<localSchedule.size();++i){
+            localSchedule[i].second *= (duration/totalDurationSchedule);
+        }
+    }
+
+    this->schedule = localSchedule;
+
 }

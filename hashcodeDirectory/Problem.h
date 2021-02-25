@@ -23,16 +23,21 @@ private:
     vector<Car *> cars;
     vector<Intersection *> intersections;
     map<int, Intersection *> intersectionsMap;
+    int streetIdCounter;
 
     /* attributes for the solution (needed to write output) */
     int score;
+    //For Generating the solution
+    vector<int> counterStreet;
+
 public:
     Problem(string inputFile);
     Problem(string inputFile, string outputFile);
     bool readInputFile();
     bool solve();
     bool writeOutput();
-    int getStreetId(string street);
+
+    void constructCounterStreet(); //Count how many cars pass by each street
 
     // For output
     int getNumberOfIntersectionsWithSchedule();

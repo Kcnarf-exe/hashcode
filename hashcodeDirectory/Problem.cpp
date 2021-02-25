@@ -3,13 +3,30 @@
 Problem::Problem(string inputFile)
 {
     this->inputFile = inputFile;
+    this->streetIdCounter = 0;
 }
 
 Problem::Problem(string inputFile, string outputFile)
 {
     this->inputFile = inputFile;
     this->outputFile = outputFile;
+    this->streetIdCounter = 0;
 }
+
+void Problem::constructCounterStreet()
+{                                                //Count how many cars pass by each street
+    vector<int> result(this->streets.size(), 0); //Fill a vect of size streets of zeros
+    vector<int> localCarStreetsList;
+    for (int i = 0; i < cars.size(); ++i)
+    {
+        localCarStreetsList = cars[i]->getListOfStreets();
+        for (int j = 0; j < localCarStreetsList.size(); ++j)
+        {
+            ++result[localCarStreetsList[j]]; //Add +1 to the street which the car pass through
+        }
+    }
+    this->counterStreet = result;
+};
 
 /**
  * Read the input file and store the content into the attributes of the Problem object
@@ -30,7 +47,7 @@ bool Problem::readInputFile()
     string str;
 
     int counter = this->S;
-    int B, E;
+    int B, E, L;
 
     while (counter--)
     {
@@ -48,24 +65,36 @@ bool Problem::readInputFile()
             intersectionsMap.insert({E, intersection});
         }
 
-        cin >> str;
+        cin >> str >> L;
+
+        street = new Street(B, E, streetIdCounter, str, L);
+        this->streetsToId[street] = streetIdCounter;
+        streetIdCounter++;
+        streets.push_back(street);
+    }
+
+    counter = this->V;
+    int P, minTime;
+    Car *car;
+    vector<int> s;
+
+    while (counter--)
+    {
+        cin >> P;
+        minTime = 0;
+        s.clear();
+        for (int i = 0; i < P; i++)
+        {
+            cin >> str;
+            s.push_back(this->streetsToId[str]);
+            minTime += this->streets[this->streetsToId[str]].getL();
+        }
+        car = new Car(P, s, minTime);
     }
 
     // Close file and return true if no problem
     // Close file
     return true;
-}
-
-int Problem::getSteetId(string street)
-{
-    bool found = this->streetToId.find(street) != this->streetToId.end();
-    if (found)
-    {
-        return this->streetToId.at(street);
-    }
-    this->streetToId[street] = streetIdCounter;
-    streetIdCounter++;
-    return streetIdCounter - 1;
 }
 
 /**
@@ -75,6 +104,12 @@ int Problem::getSteetId(string street)
  */
 bool Problem::solve()
 {
+
+    constructCounterStreet();
+    for (int i = 0; i < intersections.size(); ++i)
+    {
+        intersections[i]->generateSchedule(this->counterStreet, D); //Generate before hand the schedule for each intersection
+    }
 
     /* Set current green light */
     
@@ -132,7 +167,7 @@ bool Problem::solve()
                 car->decrementTimeTransition();
             }
         }
-    }
+   
 
     score = currentScore;
     // Return true if no problem
@@ -157,27 +192,33 @@ bool Problem::writeOutput()
     ofstream output(this->outputFile);
 
     int A = getNumberOfIntersectionsWithSchedule();
-    Intersection* intersection;
-    for (int i = 0; i < this->I; i++) {
+    Intersection *intersection;
+    for (int i = 0; i < this->I; i++)
+    {
         intersection = intersectionsMap[i];
-        if (!intersection->getSchedule().empty()) {
+        if (!intersection->getSchedule().empty())
+        {
             output << i << endl;
             output << to_string(intersection->getSchedule().size()) << endl;
-            for (pair<int,int> pairValues: intersection->getSchedule()) {
+            for (pair<int, int> pairValues : intersection->getSchedule())
+            {
                 cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
             }
         }
     }
-    
+
     // Close outputFile and return true if no problem
     output.close();
     return true;
 }
 
-int Problem::getNumberOfIntersectionsWithSchedule() {
+int Problem::getNumberOfIntersectionsWithSchedule()
+{
     int sum = 0;
-    for (Intersection* intersection: this->intersections) {
-        if (!intersection->getSchedule().empty()){
+    for (Intersection *intersection : this->intersections)
+    {
+        if (!intersection->getSchedule().empty())
+        {
             sum++;
         }
     }

@@ -29,4 +29,5 @@ class Intersection {
         void nextStreet();
         void setTimeLight(int timeLight);
 
+        void generateSchedule(vector<int> counterStreets, int duration); //Generate schedule according to vector
 };  
