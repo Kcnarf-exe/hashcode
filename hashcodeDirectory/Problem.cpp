@@ -224,3 +224,16 @@ int Problem::getNumberOfIntersectionsWithSchedule()
     }
     return sum;
 }
+
+void Problem::freeMem(){
+    for(int i=0;i<streets.size();++i){
+        delete streets[i];
+    }
+    for(int i=0;i<cars.size();++i){
+        delete cars[i];
+    }
+    for(int i=0;i<intersections.size();++i){
+        delete intersections[i];
+    }
+
+}
