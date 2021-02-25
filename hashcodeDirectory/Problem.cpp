@@ -53,13 +53,13 @@ bool Problem::readInputFile()
     {
         cin >> B >> E;
 
-        if (this->intersectionsMap.find(B) == this->instersectionsMap.end())
+        if (this->intersectionsMap.find(B) == this->intersectionsMap.end())
         {
             intersection = new Intersection(B);
             intersectionsMap.insert({B, intersection});
         }
 
-        if (this->intersectionsMap.find(E) == this->instersectionsMap.end())
+        if (this->intersectionsMap.find(E) == this->intersectionsMap.end())
         {
             intersection = new Intersection(E);
             intersectionsMap.insert({E, intersection});
@@ -68,9 +68,10 @@ bool Problem::readInputFile()
         cin >> str >> L;
 
         street = new Street(B, E, streetIdCounter, str, L);
-        this->streetsToId[street] = streetIdCounter;
+        this->streetsToId[str] = streetIdCounter;
         streetIdCounter++;
         streets.push_back(street);
+        //cout << street->getStart() << " " << street->getEnd() << " " << street->getName() << " " << street->getId() << " " << street->getL() << "\n";
     }
 
     counter = this->V;
@@ -87,9 +88,10 @@ bool Problem::readInputFile()
         {
             cin >> str;
             s.push_back(this->streetsToId[str]);
-            minTime += this->streets[this->streetsToId[str]].getL();
+            minTime += this->streets[this->streetsToId[str]]->getL();
         }
         car = new Car(P, s, minTime);
+        cars.push_back(car);
     }
 
     // Close file and return true if no problem
