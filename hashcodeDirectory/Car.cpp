@@ -24,6 +24,23 @@ void Car::decrementTimeTransition()
     }
 }
 
+int Car::getStepStreet() {
+    return this->stepStreet;
+}
+
+void Car::incrementStepStreet(){
+    this->stepStreet++;
+}
+
+bool Car::isArrived() {
+    return this->arrived;
+}
+
+void Car::setArrived(bool arrived) {
+    this->arrived = arrived;
+}
+
+
 int Car::getMinTime()
 {
     return this->minTime;

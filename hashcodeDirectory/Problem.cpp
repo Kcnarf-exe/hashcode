@@ -107,13 +107,71 @@ bool Problem::readInputFile()
 bool Problem::solve()
 {
 
-    /* do stuff */
     constructCounterStreet();
     for (int i = 0; i < intersections.size(); ++i)
     {
         intersections[i]->generateSchedule(this->counterStreet, D); //Generate before hand the schedule for each intersection
     }
 
+    /* Set current green light */
+    
+    for (Intersection* intersection : this->intersections) {
+        if (!intersection->getSchedule().empty()) {
+            intersection->changeGreenLightId(intersection->getSchedule()[0].first);
+            intersection->setTimeLight(intersection->getSchedule()[0].second)
+        } else {
+            intersection->changeGreenLightId(-1);
+            intersection->setTimeLight(0);
+        }
+    }
+
+    int currentScore = 0;
+
+    int F = 1000;
+
+    int currentStreetId;
+    Street* currentStreet;
+    int currentIntersectionId;
+    Intersection* currentIntersection;
+
+    for (int t = 0; t < this->D; t++) {
+        for (Intersection* intersection: this->intersections) {
+            intersection->setOpen(true);
+            if(intersection->getTimeLight() == 0) {
+                intersection->nextStreet();
+                continue;
+            }
+            intersection->decrementTimeLight();
+        }
+        for (Car* car: this->cars) {
+            if (car->isArrived()) {
+                continue;
+            }
+            if (car->getTimeTransition() == 0) {
+                //Check if last street
+                if (car->getStepStreet() == car->getListOfStreets().size()-1){
+                    car->setArrived(true);
+                    currentScore += F + (D - t);
+                    continue;
+                }
+                currentStreetId = car->getIdStreet();
+                currentStreet = streets[currentStreetId];
+                currentIntersectionId = currentStreet->getEnd();
+                currentIntersection = intersections[currentIntersectionId];
+                if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen()) {
+                    currentIntersection->setOpen(false);
+                    car->incrementStepStreet();
+                    currentStreetId = car->getListOfStreets()[car->getStepStreet()];
+                    car->setIdStreet(currentStreetId);
+                    car->setTimeTransition(streets[currentStreetId]->getL());
+                }
+            } else {
+                car->decrementTimeTransition();
+            }
+        }
+   
+
+    score = currentScore;
     // Return true if no problem
     return true;
 }
@@ -167,4 +225,17 @@ int Problem::getNumberOfIntersectionsWithSchedule()
         }
     }
     return sum;
+}
+
+void Problem::freeMem(){
+    for(int i=0;i<streets.size();++i){
+        delete streets[i];
+    }
+    for(int i=0;i<cars.size();++i){
+        delete cars[i];
+    }
+    for(int i=0;i<intersections.size();++i){
+        delete intersections[i];
+    }
+
 }

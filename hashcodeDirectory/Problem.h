@@ -26,6 +26,7 @@ private:
     int streetIdCounter;
 
     /* attributes for the solution (needed to write output) */
+    int score;
     //For Generating the solution
     vector<int> counterStreet;
 
@@ -40,4 +41,8 @@ public:
 
     // For output
     int getNumberOfIntersectionsWithSchedule();
+
+    void freeMem(); //Free memory space
+
+}
 };

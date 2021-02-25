@@ -36,6 +36,9 @@ int main(int argc, char **argv)
         cout << "Error while writing the output file" << endl;
         return 1;
     }
+
+    problem->freeMem();
+
     cout << "Done" << endl;*/
     delete problem;
     return 0;
