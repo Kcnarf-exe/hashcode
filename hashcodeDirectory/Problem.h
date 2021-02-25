@@ -23,6 +23,7 @@ private:
     vector<Car *> cars;
     vector<Intersection *> intersections;
     map<int, Intersection *> intersectionsMap;
+    int streetIdCounter;
 
     /* attributes for the solution (needed to write output) */
 
@@ -32,7 +33,6 @@ public:
     bool readInputFile();
     bool solve();
     bool writeOutput();
-    int getStreetId(string street);
 
     // For output
     int getNumberOfIntersectionsWithSchedule();

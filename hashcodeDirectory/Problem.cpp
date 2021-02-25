@@ -3,12 +3,14 @@
 Problem::Problem(string inputFile)
 {
     this->inputFile = inputFile;
+    this->streetIdCounter = 0;
 }
 
 Problem::Problem(string inputFile, string outputFile)
 {
     this->inputFile = inputFile;
     this->outputFile = outputFile;
+    this->streetIdCounter = 0;
 }
 
 /**
@@ -30,7 +32,7 @@ bool Problem::readInputFile()
     string str;
 
     int counter = this->S;
-    int B, E;
+    int B, E, L;
 
     while (counter--)
     {
@@ -48,24 +50,36 @@ bool Problem::readInputFile()
             intersectionsMap.insert({E, intersection});
         }
 
-        cin >> str;
+        cin >> str >> L;
+
+        street = new Street(B, E, streetIdCounter, str, L);
+        this->streetsToId[street] = streetIdCounter;
+        streetIdCounter++;
+        streets.push_back(street);
+    }
+
+    counter = this->V;
+    int P, minTime;
+    Car *car;
+    vector<int> s;
+
+    while (counter--)
+    {
+        cin >> P;
+        minTime = 0;
+        s.clear();
+        for (int i = 0; i < P; i++)
+        {
+            cin >> str;
+            s.push_back(this->streetsToId[str]);
+            minTime += this->streets[this->streetsToId[str]].getL();
+        }
+        car = new Car(P, s, minTime);
     }
 
     // Close file and return true if no problem
     // Close file
     return true;
-}
-
-int Problem::getSteetId(string street)
-{
-    bool found = this->streetToId.find(street) != this->streetToId.end();
-    if (found)
-    {
-        return this->streetToId.at(street);
-    }
-    this->streetToId[street] = streetIdCounter;
-    streetIdCounter++;
-    return streetIdCounter - 1;
 }
 
 /**
@@ -106,11 +120,13 @@ bool Problem::writeOutput()
     return true;
 }
 
-int Problem::getNumberOfIntersectionsWithSchedule() {
+int Problem::getNumberOfIntersectionsWithSchedule()
+{
     int sum = 0;
-    for (Intersection intersection: this->intersections) {
-        if (intersection->getSchedule()){
-            
+    for (Intersection intersection : this->intersections)
+    {
+        if (intersection->getSchedule())
+        {
         }
     }
 }
