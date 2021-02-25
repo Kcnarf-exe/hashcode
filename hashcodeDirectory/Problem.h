@@ -22,6 +22,9 @@ private:
     vector<Street> streets;
     vector<Car> cars;
     vector<Intersection> intersections;
+    map<int, Intersection> intersectionsMap;
+
+    map<string, int> streetsToId;
 
     /* attributes for the solution (needed to write output) */
 
@@ -31,4 +34,5 @@ public:
     bool readInputFile();
     bool solve();
     bool writeOutput();
+    int getSteetId(string street);
 };
