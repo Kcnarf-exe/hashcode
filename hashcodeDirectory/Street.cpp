@@ -1,10 +1,10 @@
 #include "Street.h"
 
-Street::Street(int start, int end, string name)
+Street::Street(int start, int end, int id)
 {
     this->start = start;
     this->end = end;
-    this->name = name;
+    this->id = id;
 }
 
 int Street::getStart()
@@ -15,7 +15,7 @@ int Street::getEnd()
 {
     return this->end;
 }
-string Street::getName()
+int Street::getId()
 {
-    return this->name;
+    return this->id;
 }
