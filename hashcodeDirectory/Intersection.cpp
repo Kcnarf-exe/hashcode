@@ -82,6 +82,9 @@ void Intersection::generateSchedule(vector<int> counterStreets, int duration)
     int totalDurationSchedule = 0;
 
     for(int i=0;i<counterStreets.size();++i){
+        if (counterStreets[i] == 0){
+            continue;
+        }
         if( this->inputStreetIds.find(i) != this->inputStreetIds.end() ){
             pair<int,int> entrySchedule (i,counterStreets[i]);
             totalDurationSchedule += counterStreets[i];
@@ -93,7 +96,8 @@ void Intersection::generateSchedule(vector<int> counterStreets, int duration)
     { //If there is not enough time to apply the schedule
         for (int i = 0; i < localSchedule.size(); ++i)
         {
-            localSchedule[i].second *= (duration / totalDurationSchedule);
+            cout << "hi" << endl;
+            localSchedule[i].second *= max(1,(duration / totalDurationSchedule));
         }
     }
 
