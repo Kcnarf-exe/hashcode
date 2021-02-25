@@ -5,11 +5,13 @@ using namespace std;
 class Street
 {
 private:
-    Intersection start;
-    Intersection end;
+    int start;
+    int end;
+    string name;
 
 public:
-    Street(Intersection start, Intersection end);
-    Intersection getStart();
-    Intersection getEnd();
+    Street(int start, int end, string name);
+    int getStart();
+    int getEnd();
+    string getName();
 };
