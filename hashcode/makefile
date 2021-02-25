@@ -3,7 +3,7 @@ EXEC=main
 
 all: $(EXEC)
 
-main: main.o
+main: main.o Problem.o
 	$(CPPFLAG) -o $@ $^
 %.o: %.cpp
 	$(CPPFLAG) -o $@ -c $^
