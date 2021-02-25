@@ -1,70 +1,84 @@
 #include "Intersection.h"
 
-Intersection::Intersection(int id) {
+Intersection::Intersection(int id)
+{
     this->id = id;
 }
 
-void Intersection::addInputStreet(int inputStreetId) {
+void Intersection::addInputStreet(int inputStreetId)
+{
     this->inputStreetIds.insert(inputStreetId);
 }
 
-void Intersection::addOutputStreet(int outputStreetId) {
+void Intersection::addOutputStreet(int outputStreetId)
+{
     this->outputStreetIds.insert(outputStreetId);
 }
 
-void Intersection::changeGreenLightId(int id){
+void Intersection::changeGreenLightId(int id)
+{
     this->currentGreenLightId = id;
 }
 
-int Intersection::getGreenLightId(){
+int Intersection::getGreenLightId()
+{
     return this->currentGreenLightId;
 }
 
-void Intersection::addGreenLightSchedule(int inputStreetId, int duration) {
+void Intersection::addGreenLightSchedule(int inputStreetId, int duration)
+{
     this->schedule.push_back(make_pair(inputStreetId, duration));
 }
 
-vector<pair<int,int>> Intersection::getSchedule() {
+vector<pair<int, int>> Intersection::getSchedule()
+{
     return schedule;
 }
 
-bool Intersection::isOpen() {
+bool Intersection::isOpen()
+{
     return this->open;
 }
 
-void Intersection::setOpen(bool open) {
+void Intersection::setOpen(bool open)
+{
     this->open = open;
 }
 
-
-void Intersection::decrementTimeLight(){
-    if (this->timeLight > 0){
-        this->timeLight --;
+void Intersection::decrementTimeLight()
+{
+    if (this->timeLight > 0)
+    {
+        this->timeLight--;
     }
 }
-int Intersection::getTimeLight() {
+int Intersection::getTimeLight()
+{
     return this->timeLight;
 }
-void Intersection::nextStreet(){
-    if (this->schedule.size()-1 == this->stepStreet) {
+void Intersection::nextStreet()
+{
+    if (this->schedule.size() - 1 == this->stepStreet)
+    {
         stepStreet = 0;
-    } else {
-        stepStreet ++;
+    }
+    else
+    {
+        stepStreet++;
     }
 
     this->changeGreenLightId(this->schedule[stepStreet].first);
     this->setTimeLight(this->schedule[stepStreet].second);
-
-
 }
 
-
-void Intersection::setTimeLight(int timeLight){
+void Intersection::setTimeLight(int timeLight)
+{
     this->timeLight = timeLight;
 }
 
-void Intersection::generateSchedule(vector<int> counterStreets, int duration){
-    vector<pair<int,int>> localSchedule;
+void Intersection::generateSchedule(vector<int> counterStreets, int duration)
+{
+    vector<pair<int, int>> localSchedule;
     int totalDurationSchedule = 0;
     cout << inputStreetIds.size() << endl;
 
@@ -76,9 +90,11 @@ void Intersection::generateSchedule(vector<int> counterStreets, int duration){
         }
     }
 
-    if(totalDurationSchedule > duration){ //If there is not enough time to apply the schedule
-        for(int i=0;i<localSchedule.size();++i){
-            localSchedule[i].second *= (duration/totalDurationSchedule);
+    if (totalDurationSchedule > duration)
+    { //If there is not enough time to apply the schedule
+        for (int i = 0; i < localSchedule.size(); ++i)
+        {
+            localSchedule[i].second *= (duration / totalDurationSchedule);
         }
     }
 

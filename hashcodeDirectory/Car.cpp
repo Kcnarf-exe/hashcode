@@ -3,7 +3,7 @@
 Car::Car(int numberOfStreets, vector<int> listOfStreets, int minTime)
 {
     this->numberOfStreets = numberOfStreets;
-    this->listOfStreets = listOfStreets;
+    this->listOfStreets = listStreets;
     this->minTime = minTime;
 }
 
@@ -24,22 +24,25 @@ void Car::decrementTimeTransition()
     }
 }
 
-int Car::getStepStreet() {
+int Car::getStepStreet()
+{
     return this->stepStreet;
 }
 
-void Car::incrementStepStreet(){
+void Car::incrementStepStreet()
+{
     this->stepStreet++;
 }
 
-bool Car::isArrived() {
+bool Car::isArrived()
+{
     return this->arrived;
 }
 
-void Car::setArrived(bool arrived) {
+void Car::setArrived(bool arrived)
+{
     this->arrived = arrived;
 }
-
 
 int Car::getMinTime()
 {

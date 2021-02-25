@@ -56,19 +56,21 @@ bool Problem::readInputFile()
         if (this->intersectionsMap.find(B) == this->intersectionsMap.end())
         {
             intersection = new Intersection(B);
-            intersectionsMap.insert({B, intersection});
+            this->intersectionsMap.insert({B, intersection});
         }
 
         if (this->intersectionsMap.find(E) == this->intersectionsMap.end())
         {
             intersection = new Intersection(E);
-            intersectionsMap.insert({E, intersection});
+            this->intersectionsMap.insert({E, intersection});
         }
         
         cin >> str >> L;
 
         street = new Street(B, E, streetIdCounter, str, L);
         this->streetsToId[str] = streetIdCounter;
+        this->intersectionsMap[B]->addOutputStreet(streetIdCounter);
+        this->intersectionsMap[E]->addInputStreet(streetIdCounter);
         streetIdCounter++;
         streets.push_back(street);
         //cout << street->getStart() << " " << street->getEnd() << " " << street->getName() << " " << street->getId() << " " << street->getL() << "\n";
@@ -95,6 +97,7 @@ bool Problem::readInputFile()
         }
         car = new Car(P, s, minTime);
         cars.push_back(car);
+        //cout << car->getMinTime() << endl;
     }
 
     // Close file and return true if no problem
@@ -117,12 +120,16 @@ bool Problem::solve()
     }
     
     /* Set current green light */
-    
-    for (Intersection* intersection : this->intersections) {
-        if (!intersection->getSchedule().empty()) {
+
+    for (Intersection *intersection : this->intersections)
+    {
+        if (!intersection->getSchedule().empty())
+        {
             intersection->changeGreenLightId(intersection->getSchedule()[0].first);
             intersection->setTimeLight(intersection->getSchedule()[0].second);
-        } else {
+        }
+        else
+        {
             intersection->changeGreenLightId(-1);
             intersection->setTimeLight(0);
         }
@@ -140,9 +147,9 @@ bool Problem::solve()
     int F = 1000;
 
     int currentStreetId;
-    Street* currentStreet;
+    Street *currentStreet;
     int currentIntersectionId;
-    Intersection* currentIntersection;
+    Intersection *currentIntersection;
 
     for (int t = 0; t < this->D; t++) {
         for (Intersection* intersection: this->intersections) {
@@ -150,19 +157,24 @@ bool Problem::solve()
                 continue;
             }
             intersection->setOpen(true);
-            if(intersection->getTimeLight() == 0) {
+            if (intersection->getTimeLight() == 0)
+            {
                 intersection->nextStreet();
                 continue;
             }
             intersection->decrementTimeLight();
         }
-        for (Car* car: this->cars) {
-            if (car->isArrived()) {
+        for (Car *car : this->cars)
+        {
+            if (car->isArrived())
+            {
                 continue;
             }
-            if (car->getTimeTransition() == 0) {
+            if (car->getTimeTransition() == 0)
+            {
                 //Check if last street
-                if (car->getStepStreet() == car->getListOfStreets().size()-1){
+                if (car->getStepStreet() == car->getListOfStreets().size() - 1)
+                {
                     car->setArrived(true);
                     currentScore += F + (D - t);
                     continue;
@@ -173,18 +185,20 @@ bool Problem::solve()
                 currentStreet = streets[currentStreetId];
                 currentIntersectionId = currentStreet->getEnd();
                 currentIntersection = intersections[currentIntersectionId];
-                if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen()) {
+                if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen())
+                {
                     currentIntersection->setOpen(false);
                     car->incrementStepStreet();
                     currentStreetId = car->getListOfStreets()[car->getStepStreet()];
                     car->setIdStreet(currentStreetId);
                     car->setTimeTransition(streets[currentStreetId]->getL());
                 }
-            } else {
+            }
+            else
+            {
                 car->decrementTimeTransition();
             }
         }
-   
     }
     score = currentScore;
     // Return true if no problem
@@ -245,15 +259,18 @@ int Problem::getNumberOfIntersectionsWithSchedule()
     return sum;
 }
 
-void Problem::freeMem(){
-    for(int i=0;i<streets.size();++i){
+void Problem::freeMem()
+{
+    for (int i = 0; i < streets.size(); ++i)
+    {
         delete streets[i];
     }
-    for(int i=0;i<cars.size();++i){
+    for (int i = 0; i < cars.size(); ++i)
+    {
         delete cars[i];
     }
-    for(int i=0;i<intersections.size();++i){
+    for (int i = 0; i < intersections.size(); ++i)
+    {
         delete intersections[i];
     }
-
 }

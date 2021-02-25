@@ -43,5 +43,4 @@ public:
     int getNumberOfIntersectionsWithSchedule();
 
     void freeMem(); //Free memory space
-
 };

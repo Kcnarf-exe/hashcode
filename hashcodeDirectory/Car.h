@@ -11,7 +11,7 @@ private:
 
     //Variable pour la simu
     int timeTransition; //Si =0 elle est a l intersection a la fin de la rue actuel
-    int idStreetIsIn; //Id of the street where it is now
+    int idStreetIsIn;   //Id of the street where it is now
     int stepStreet = 0;
     bool arrived = false;
 
@@ -33,5 +33,4 @@ public:
     int getTimeTransition();
     void setTimeTransition(int time);
     void decrementTimeTransition(); //Decrement the timer on the moving car, if <= the it does not move
-    
 };
