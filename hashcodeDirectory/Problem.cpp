@@ -88,7 +88,6 @@ int Problem::getSteetId(string street)
 bool Problem::solve()
 {
 
-    /* do stuff */
     constructCounterStreet();
     for(int i=0; i<intersections.size();++i){
         intersections[i]->generateSchedule(this->counterStreet,D); //Generate before hand the schedule for each intersection
@@ -141,4 +140,17 @@ int Problem::getNumberOfIntersectionsWithSchedule() {
         }
     }
     return sum;
+}
+
+void Problem::freeMem(){
+    for(int i=0;i<streets.size();++i){
+        delete streets[i];
+    }
+    for(int i=0;i<cars.size();++i){
+        delete cars[i];
+    }
+    for(int i=0;i<intersections.size();++i){
+        delete intersections[i];
+    }
+
 }
