@@ -59,6 +59,8 @@ void Intersection::nextStreet(){
 
 void Intersection::setTimeLight(int timeLight){
     this->timeLight = timeLight;
+}
+
 void Intersection::generateSchedule(vector<int> counterStreets, int duration){
     vector<pair<int,int>> localSchedule;
     int totalDurationSchedule = 0;
