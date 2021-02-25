@@ -77,13 +77,12 @@ bool Problem::readInputFile()
     counter = this->V;
     int P, minTime;
     Car *car;
-    vector<int> s;
 
     while (counter--)
     {
         cin >> P;
         minTime = 0;
-        s.clear();
+        vector<int> s;
         for (int i = 0; i < P; i++)
         {
             cin >> str;
@@ -112,7 +111,7 @@ bool Problem::solve()
     {
         intersections[i]->generateSchedule(this->counterStreet, D); //Generate before hand the schedule for each intersection
     }
-
+    
     /* Set current green light */
     
     for (Intersection* intersection : this->intersections) {
@@ -124,6 +123,13 @@ bool Problem::solve()
             intersection->setTimeLight(0);
         }
     }
+
+    /* initiate cars to the end of first street */ 
+    for (Car* car: this->cars) {
+        car->setIdStreet(car->getListOfStreets()[0]);
+        car->setTimeTransition(0);
+    }
+    
 
     int currentScore = 0;
 
@@ -155,9 +161,14 @@ bool Problem::solve()
                     continue;
                 }
                 currentStreetId = car->getIdStreet();
+                
+
                 currentStreet = streets[currentStreetId];
+                cout <<"hi" << currentStreetId << endl;
                 currentIntersectionId = currentStreet->getEnd();
+                cout << "hellooo " << currentIntersectionId << endl;
                 currentIntersection = intersections[currentIntersectionId];
+                cout <<"hi" << currentStreetId << endl;
                 if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen()) {
                     currentIntersection->setOpen(false);
                     car->incrementStepStreet();

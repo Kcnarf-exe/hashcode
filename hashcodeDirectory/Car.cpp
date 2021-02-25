@@ -1,6 +1,6 @@
 #include "Car.h"
 
-Car::Car(int numberOfStreets, vector<int> listStreets, int minTime)
+Car::Car(int numberOfStreets, vector<int> listOfStreets, int minTime)
 {
     this->numberOfStreets = numberOfStreets;
     this->listOfStreets = listOfStreets;
