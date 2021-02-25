@@ -13,5 +13,4 @@ int main(int argc, char** argv) {
     cout << "Score : " << score->generateScore() << endl;
 
     return 0;
-
 }
