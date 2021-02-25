@@ -4,6 +4,14 @@ Intersection::Intersection(int id) {
     this->id = id;
 }
 
+void Intersection::addInputStreet(int inputStreetId) {
+    this->inputStreetIds.insert(inputStreetId);
+}
+
+void Intersection::addOutputStreet(int outputStreetId) {
+    this->outputStreetIds.insert(outputStreetId);
+}
+
 void Intersection::changeGreenLightId(int id){
     this->currentGreenLightId = id;
 }

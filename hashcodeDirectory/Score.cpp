@@ -30,7 +30,7 @@ int Score::generateScore() {
     /* Calculate score based on the problem */
 
 
-
+    delete problem;
     return score;
 }
 
