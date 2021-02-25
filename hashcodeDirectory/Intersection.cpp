@@ -51,8 +51,10 @@ void Intersection::nextStreet(){
     } else {
         stepStreet ++;
     }
+
     this->changeGreenLightId(this->schedule[stepStreet].first);
     this->setTimeLight(this->schedule[stepStreet].second);
+
 
 }
 
@@ -64,11 +66,13 @@ void Intersection::setTimeLight(int timeLight){
 void Intersection::generateSchedule(vector<int> counterStreets, int duration){
     vector<pair<int,int>> localSchedule;
     int totalDurationSchedule = 0;
+    cout << inputStreetIds.size() << endl;
+
     for(int i=0;i<counterStreets.size();++i){
         if( this->inputStreetIds.find(i) != this->inputStreetIds.end() ){
-            pair<int,int> entrySChedule (i,counterStreets[i]);
+            pair<int,int> entrySchedule (i,counterStreets[i]);
             totalDurationSchedule += counterStreets[i];
-            localSchedule.push_back(entrySChedule);
+            localSchedule.push_back(entrySchedule);
         }
     }
 
@@ -79,5 +83,4 @@ void Intersection::generateSchedule(vector<int> counterStreets, int duration){
     }
 
     this->schedule = localSchedule;
-
 }

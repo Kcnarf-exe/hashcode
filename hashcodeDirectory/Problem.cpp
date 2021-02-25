@@ -64,7 +64,7 @@ bool Problem::readInputFile()
             intersection = new Intersection(E);
             intersectionsMap.insert({E, intersection});
         }
-
+        
         cin >> str >> L;
 
         street = new Street(B, E, streetIdCounter, str, L);
@@ -72,6 +72,10 @@ bool Problem::readInputFile()
         streetIdCounter++;
         streets.push_back(street);
         //cout << street->getStart() << " " << street->getEnd() << " " << street->getName() << " " << street->getId() << " " << street->getL() << "\n";
+    }
+
+    for (int i = 0; i < I; i++){
+        intersections.push_back(intersectionsMap[i]);
     }
 
     counter = this->V;
@@ -142,6 +146,9 @@ bool Problem::solve()
 
     for (int t = 0; t < this->D; t++) {
         for (Intersection* intersection: this->intersections) {
+            if (intersection->getSchedule().size() == 0) {
+                continue;
+            }
             intersection->setOpen(true);
             if(intersection->getTimeLight() == 0) {
                 intersection->nextStreet();
@@ -164,11 +171,8 @@ bool Problem::solve()
                 
 
                 currentStreet = streets[currentStreetId];
-                cout <<"hi" << currentStreetId << endl;
                 currentIntersectionId = currentStreet->getEnd();
-                cout << "hellooo " << currentIntersectionId << endl;
                 currentIntersection = intersections[currentIntersectionId];
-                cout <<"hi" << currentStreetId << endl;
                 if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen()) {
                     currentIntersection->setOpen(false);
                     car->incrementStepStreet();
@@ -205,6 +209,7 @@ bool Problem::writeOutput()
     ofstream output(this->outputFile);
 
     int A = getNumberOfIntersectionsWithSchedule();
+    output << A << endl;
     Intersection *intersection;
     for (int i = 0; i < this->I; i++)
     {
@@ -215,7 +220,7 @@ bool Problem::writeOutput()
             output << to_string(intersection->getSchedule().size()) << endl;
             for (pair<int, int> pairValues : intersection->getSchedule())
             {
-                cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
+                output << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
             }
         }
     }
@@ -228,10 +233,12 @@ bool Problem::writeOutput()
 int Problem::getNumberOfIntersectionsWithSchedule()
 {
     int sum = 0;
+    cout <<intersections.size() << endl;
     for (Intersection *intersection : this->intersections)
     {
         if (!intersection->getSchedule().empty())
         {
+            cout << "hellllllloo"<< endl;
             sum++;
         }
     }

@@ -1,6 +1,7 @@
 
 #include <vector>
 #include <unordered_set>
+#include <iostream>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class Intersection {
         vector<pair<int,int>> schedule; // (streetId, duration)  : pattern to repeat until the end of the simalution
         int currentGreenLightId;
         bool open = true;
-        int timeLight;
+        int timeLight = 0;
         int stepStreet = 0;
     public :
         Intersection(int id);
