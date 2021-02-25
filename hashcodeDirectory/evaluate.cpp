@@ -12,5 +12,6 @@ int main(int argc, char** argv) {
     Score* score = new Score(inputFile, outputFile);
     cout << "Score : " << score->generateScore() << endl;
 
+    delete score;
     return 0;
 }

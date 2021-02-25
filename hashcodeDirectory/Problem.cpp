@@ -79,7 +79,7 @@ bool Problem::writeOutput()
 int Problem::getNumberOfIntersectionsWithSchedule() {
     int sum = 0;
     for (Intersection intersection: this->intersections) {
-        if (intersection->getSchedule().empty()){
+        if (intersection->getSchedule()){
             
         }
     }

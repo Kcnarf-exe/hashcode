@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
         return 1;
     }
     cout << "Done" << endl;
+    delete problem;
     return 0;
 
 }

@@ -1,7 +1,6 @@
 #include <string>
 #include <fstream>
 #include <bits/stdc++.h>
-#include <vector>
 #include "Street.h"
 #include "Intersection.h"
 #include "Car.h"
@@ -19,9 +18,9 @@ private:
     int S;
     int V;
     int F;
-    vector<Street> streets;
-    vector<Car> cars;
-    vector<Intersection> intersections;
+    vector<Street*> streets;
+    vector<Car*> cars;
+    vector<Intersection*> intersections;
 
     /* attributes for the solution (needed to write output) */
 
