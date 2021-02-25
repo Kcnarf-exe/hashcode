@@ -19,4 +19,5 @@ class Intersection {
         int getGreenLightId();
         void addGreenLightSchedule(int incomingStreetId, int duration);        
         vector<pair<int,int>> getSchedule();
+        void generateSchedule(vector<int> counterStreets, int duration); //Generate schedule according to vector
 };  

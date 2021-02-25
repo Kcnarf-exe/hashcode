@@ -11,6 +11,18 @@ Problem::Problem(string inputFile, string outputFile)
     this->outputFile = outputFile;
 }
 
+void Problem::constructCounterStreet(){ //Count how many cars pass by each street
+    vector<int> result(this->streets.size(),0); //Fill a vect of size streets of zeros
+    vector<int> localCarStreetsList;
+    for(int i=0;i<cars.size();++i){
+        localCarStreetsList = cars[i]->getListOfStreets();
+        for(int j=0;j<localCarStreetsList.size();++j){
+           ++result[localCarStreetsList[j]]; //Add +1 to the street which the car pass through
+        }
+    }
+    this->counterStreet = result;
+};
+
 /**
  * Read the input file and store the content into the attributes of the Problem object
  * 
@@ -47,6 +59,10 @@ bool Problem::solve()
 {
 
     /* do stuff */
+    constructCounterStreet();
+    for(int i=0; i<intersections.size();++i){
+        intersections[i]->generateSchedule(this->counterStreet,D); //Generate before hand the schedule for each intersection
+    }
 
     // Return true if no problem
     return true;
