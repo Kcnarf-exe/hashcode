@@ -8,6 +8,7 @@ int main(int argc, char** argv) {
     string outputFile = argv[2];
 
     // Evaluate the score
+    cout << "Evaluating the score ..." << endl;
     Score* score = new Score(inputFile, outputFile);
     cout << "Score : " << score->generateScore() << endl;
 

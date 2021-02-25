@@ -26,6 +26,7 @@ int Score::generateScore() {
         return -1;
     }
 
+    int score = 0;
     /* Calculate score based on the problem */
 
 

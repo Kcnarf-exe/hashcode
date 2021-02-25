@@ -38,6 +38,7 @@ bool Problem::solve() {
     /* do stuff */
 
     // Return true if no problem
+    return true;
 }
 
 /**

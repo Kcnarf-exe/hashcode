@@ -5,7 +5,6 @@ using namespace std;
 class Score
 {
 private:
-    int score;
     string inputFile;
     string outputFile;
     bool isValid(Problem* inputProblem/*, outputInfo */);
