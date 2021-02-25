@@ -18,9 +18,11 @@ private:
     int S;
     int V;
     int F;
-    vector<Street*> streets;
-    vector<Car*> cars;
-    vector<Intersection*> intersections;
+    map<string, int> streetsToId;
+    vector<Street *> streets;
+    vector<Car *> cars;
+    vector<Intersection *> intersections;
+    map<int, Intersection *> intersectionsMap;
 
     /* attributes for the solution (needed to write output) */
     //For Generating the solution
@@ -34,4 +36,8 @@ public:
     bool writeOutput();
 
     void constructCounterStreet(); //Count how many cars pass by each street
+    int getStreetId(string street);
+
+    // For output
+    int getNumberOfIntersectionsWithSchedule();
 };
