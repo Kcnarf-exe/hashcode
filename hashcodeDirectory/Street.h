@@ -11,7 +11,7 @@ private:
     string name;
 
 public:
-    Street(int start, int end, int id, int L);
+    Street(int start, int end, int id, string name, int L);
     int getStart();
     int getEnd();
     int getId();

@@ -5,7 +5,7 @@ all: $(EXEC)
 
 evaluate: evaluate.o Problem.o Score.o
 	$(CPPFLAG) -o $@ $^
-main: main.o Problem.o
+main: main.o Car.o Intersection.o Street.o Problem.o
 	$(CPPFLAG) -o $@ $^
 %.o: %.cpp
 	$(CPPFLAG) -o $@ -c $^
