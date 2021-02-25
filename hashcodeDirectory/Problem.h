@@ -31,4 +31,7 @@ public:
     bool readInputFile();
     bool solve();
     bool writeOutput();
+
+    // For output
+    int getNumberOfIntersectionsWithSchedule();
 };

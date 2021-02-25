@@ -69,9 +69,18 @@ bool Problem::writeOutput()
     // Create and open outputfile
     ofstream output(this->outputFile);
 
-    /* do stuff */
+    int A = getNumberOfIntersectionsWithSchedule();
 
     // Close outputFile and return true if no problem
     output.close();
     return true;
+}
+
+int Problem::getNumberOfIntersectionsWithSchedule() {
+    int sum = 0;
+    for (Intersection intersection: this->intersections) {
+        if (intersection->getSchedule().empty()){
+            
+        }
+    }
 }
