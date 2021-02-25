@@ -22,7 +22,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    /*// Solve the problem
+    // Solve the problem
     cout << "Solving ..." << endl;
     if (!problem->solve()) {
         cout << "No solution found" << endl;
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 
     problem->freeMem();
 
-    cout << "Done" << endl;*/
+    cout << "Done" << endl;
     delete problem;
     return 0;
 }
