@@ -80,7 +80,6 @@ void Intersection::generateSchedule(vector<int> counterStreets, int duration)
 {
     vector<pair<int, int>> localSchedule;
     int totalDurationSchedule = 0;
-    cout << inputStreetIds.size() << endl;
 
     for(int i=0;i<counterStreets.size();++i){
         if( this->inputStreetIds.find(i) != this->inputStreetIds.end() ){

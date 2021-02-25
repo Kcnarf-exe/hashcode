@@ -247,12 +247,10 @@ bool Problem::writeOutput()
 int Problem::getNumberOfIntersectionsWithSchedule()
 {
     int sum = 0;
-    cout <<intersections.size() << endl;
     for (Intersection *intersection : this->intersections)
     {
         if (!intersection->getSchedule().empty())
         {
-            cout << "hellllllloo"<< endl;
             sum++;
         }
     }

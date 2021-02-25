@@ -3,7 +3,7 @@
 Car::Car(int numberOfStreets, vector<int> listOfStreets, int minTime)
 {
     this->numberOfStreets = numberOfStreets;
-    this->listOfStreets = listStreets;
+    this->listOfStreets = listOfStreets;
     this->minTime = minTime;
 }
 
