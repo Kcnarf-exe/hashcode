@@ -7,7 +7,7 @@ class Car
 private:
     int numberOfStreets;
     int minTime;
-    vector<int> listOfStreets;
+    vector<int> listOfStreets; //Contain all id of the street it has to cross
 
     //Variable pour la simu
     int timeTransition; //Si =0 elle est a l intersection a la fin de la rue actuel
@@ -18,7 +18,6 @@ public:
     int getMinTime();
     int getNumberOfStreets();
     vector<int> getListOfStreets();
-
     int getIdStreet();
     void setIdStreet(int id);
 
