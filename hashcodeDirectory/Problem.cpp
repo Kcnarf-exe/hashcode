@@ -53,13 +53,13 @@ bool Problem::readInputFile()
     {
         cin >> B >> E;
 
-        if (this->intersectionsMap.find(B) == this->instersectionsMap.end())
+        if (this->intersectionsMap.find(B) == this->intersectionsMap.end())
         {
             intersection = new Intersection(B);
             intersectionsMap.insert({B, intersection});
         }
 
-        if (this->intersectionsMap.find(E) == this->instersectionsMap.end())
+        if (this->intersectionsMap.find(E) == this->intersectionsMap.end())
         {
             intersection = new Intersection(E);
             intersectionsMap.insert({E, intersection});
