@@ -71,7 +71,7 @@ bool Problem::readInputFile()
         this->streetsToId[str] = streetIdCounter;
         streetIdCounter++;
         streets.push_back(street);
-        //cout << street->getStart() << " " << street->getEnd() << " " << street->getName() << " " << street->getId() << " " << street->getL() << "\n";
+        cout << street->getStart() << " " << street->getEnd() << " " << street->getName() << " " << street->getId() << " " << street->getL() << "\n";
     }
 
     counter = this->V;
@@ -114,12 +114,16 @@ bool Problem::solve()
     }
 
     /* Set current green light */
-    
-    for (Intersection* intersection : this->intersections) {
-        if (!intersection->getSchedule().empty()) {
+
+    for (Intersection *intersection : this->intersections)
+    {
+        if (!intersection->getSchedule().empty())
+        {
             intersection->changeGreenLightId(intersection->getSchedule()[0].first);
-            intersection->setTimeLight(intersection->getSchedule()[0].second)
-        } else {
+            intersection->setTimeLight(intersection->getSchedule()[0].second);
+        }
+        else
+        {
             intersection->changeGreenLightId(-1);
             intersection->setTimeLight(0);
         }
@@ -130,26 +134,33 @@ bool Problem::solve()
     int F = 1000;
 
     int currentStreetId;
-    Street* currentStreet;
+    Street *currentStreet;
     int currentIntersectionId;
-    Intersection* currentIntersection;
+    Intersection *currentIntersection;
 
-    for (int t = 0; t < this->D; t++) {
-        for (Intersection* intersection: this->intersections) {
+    for (int t = 0; t < this->D; t++)
+    {
+        for (Intersection *intersection : this->intersections)
+        {
             intersection->setOpen(true);
-            if(intersection->getTimeLight() == 0) {
+            if (intersection->getTimeLight() == 0)
+            {
                 intersection->nextStreet();
                 continue;
             }
             intersection->decrementTimeLight();
         }
-        for (Car* car: this->cars) {
-            if (car->isArrived()) {
+        for (Car *car : this->cars)
+        {
+            if (car->isArrived())
+            {
                 continue;
             }
-            if (car->getTimeTransition() == 0) {
+            if (car->getTimeTransition() == 0)
+            {
                 //Check if last street
-                if (car->getStepStreet() == car->getListOfStreets().size()-1){
+                if (car->getStepStreet() == car->getListOfStreets().size() - 1)
+                {
                     car->setArrived(true);
                     currentScore += F + (D - t);
                     continue;
@@ -158,84 +169,89 @@ bool Problem::solve()
                 currentStreet = streets[currentStreetId];
                 currentIntersectionId = currentStreet->getEnd();
                 currentIntersection = intersections[currentIntersectionId];
-                if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen()) {
+                if (currentIntersection->getGreenLightId() == currentStreetId && currentIntersection->isOpen())
+                {
                     currentIntersection->setOpen(false);
                     car->incrementStepStreet();
                     currentStreetId = car->getListOfStreets()[car->getStepStreet()];
                     car->setIdStreet(currentStreetId);
                     car->setTimeTransition(streets[currentStreetId]->getL());
                 }
-            } else {
+            }
+            else
+            {
                 car->decrementTimeTransition();
             }
         }
-   
 
-    score = currentScore;
-    // Return true if no problem
-    return true;
-}
+        score = currentScore;
+        // Return true if no problem
+        return true;
+    }
 
-/**
+    /**
  * Write the output file based on info in its attributes
  * 
  * @return true if no problem, false otherwise
  */
-bool Problem::writeOutput()
-{
-    // Check if we have an output file
-    if (this->outputFile.empty())
+    bool Problem::writeOutput()
     {
-        cout << "Output file not defined" << endl;
-        return false;
-    }
-
-    // Create and open outputfile
-    ofstream output(this->outputFile);
-
-    int A = getNumberOfIntersectionsWithSchedule();
-    Intersection *intersection;
-    for (int i = 0; i < this->I; i++)
-    {
-        intersection = intersectionsMap[i];
-        if (!intersection->getSchedule().empty())
+        // Check if we have an output file
+        if (this->outputFile.empty())
         {
-            output << i << endl;
-            output << to_string(intersection->getSchedule().size()) << endl;
-            for (pair<int, int> pairValues : intersection->getSchedule())
+            cout << "Output file not defined" << endl;
+            return false;
+        }
+
+        // Create and open outputfile
+        ofstream output(this->outputFile);
+
+        int A = getNumberOfIntersectionsWithSchedule();
+        Intersection *intersection;
+        for (int i = 0; i < this->I; i++)
+        {
+            intersection = intersectionsMap[i];
+            if (!intersection->getSchedule().empty())
             {
-                cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
+                output << i << endl;
+                output << to_string(intersection->getSchedule().size()) << endl;
+                for (pair<int, int> pairValues : intersection->getSchedule())
+                {
+                    cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
+                }
             }
         }
+
+        // Close outputFile and return true if no problem
+        output.close();
+        return true;
     }
 
-    // Close outputFile and return true if no problem
-    output.close();
-    return true;
-}
-
-int Problem::getNumberOfIntersectionsWithSchedule()
-{
-    int sum = 0;
-    for (Intersection *intersection : this->intersections)
+    int Problem::getNumberOfIntersectionsWithSchedule()
     {
-        if (!intersection->getSchedule().empty())
+        int sum = 0;
+        for (Intersection *intersection : this->intersections)
         {
-            sum++;
+            if (!intersection->getSchedule().empty())
+            {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    void Problem::freeMem()
+    {
+        for (int i = 0; i < streets.size(); ++i)
+        {
+            delete streets[i];
+        }
+        for (int i = 0; i < cars.size(); ++i)
+        {
+            delete cars[i];
+        }
+        for (int i = 0; i < intersections.size(); ++i)
+        {
+            delete intersections[i];
         }
     }
-    return sum;
-}
-
-void Problem::freeMem(){
-    for(int i=0;i<streets.size();++i){
-        delete streets[i];
-    }
-    for(int i=0;i<cars.size();++i){
-        delete cars[i];
-    }
-    for(int i=0;i<intersections.size();++i){
-        delete intersections[i];
-    }
-
-}
