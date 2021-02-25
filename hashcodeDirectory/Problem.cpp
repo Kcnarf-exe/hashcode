@@ -183,75 +183,75 @@ bool Problem::solve()
                 car->decrementTimeTransition();
             }
         }
-
-        score = currentScore;
-        // Return true if no problem
-        return true;
     }
+    score = currentScore;
+    // Return true if no problem
+    return true;
+}
 
-    /**
+/**
  * Write the output file based on info in its attributes
  * 
  * @return true if no problem, false otherwise
  */
-    bool Problem::writeOutput()
+bool Problem::writeOutput()
+{
+    // Check if we have an output file
+    if (this->outputFile.empty())
     {
-        // Check if we have an output file
-        if (this->outputFile.empty())
-        {
-            cout << "Output file not defined" << endl;
-            return false;
-        }
+        cout << "Output file not defined" << endl;
+        return false;
+    }
 
-        // Create and open outputfile
-        ofstream output(this->outputFile);
+    // Create and open outputfile
+    ofstream output(this->outputFile);
 
-        int A = getNumberOfIntersectionsWithSchedule();
-        Intersection *intersection;
-        for (int i = 0; i < this->I; i++)
+    int A = getNumberOfIntersectionsWithSchedule();
+    Intersection *intersection;
+    for (int i = 0; i < this->I; i++)
+    {
+        intersection = intersectionsMap[i];
+        if (!intersection->getSchedule().empty())
         {
-            intersection = intersectionsMap[i];
-            if (!intersection->getSchedule().empty())
+            output << i << endl;
+            output << to_string(intersection->getSchedule().size()) << endl;
+            for (pair<int, int> pairValues : intersection->getSchedule())
             {
-                output << i << endl;
-                output << to_string(intersection->getSchedule().size()) << endl;
-                for (pair<int, int> pairValues : intersection->getSchedule())
-                {
-                    cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
-                }
+                cout << streets[pairValues.first]->getName() << " " << pairValues.second << endl;
             }
         }
-
-        // Close outputFile and return true if no problem
-        output.close();
-        return true;
     }
 
-    int Problem::getNumberOfIntersectionsWithSchedule()
+    // Close outputFile and return true if no problem
+    output.close();
+    return true;
+}
+
+int Problem::getNumberOfIntersectionsWithSchedule()
+{
+    int sum = 0;
+    for (Intersection *intersection : this->intersections)
     {
-        int sum = 0;
-        for (Intersection *intersection : this->intersections)
+        if (!intersection->getSchedule().empty())
         {
-            if (!intersection->getSchedule().empty())
-            {
-                sum++;
-            }
+            sum++;
         }
-        return sum;
     }
+    return sum;
+}
 
-    void Problem::freeMem()
+void Problem::freeMem()
+{
+    for (int i = 0; i < streets.size(); ++i)
     {
-        for (int i = 0; i < streets.size(); ++i)
-        {
-            delete streets[i];
-        }
-        for (int i = 0; i < cars.size(); ++i)
-        {
-            delete cars[i];
-        }
-        for (int i = 0; i < intersections.size(); ++i)
-        {
-            delete intersections[i];
-        }
+        delete streets[i];
     }
+    for (int i = 0; i < cars.size(); ++i)
+    {
+        delete cars[i];
+    }
+    for (int i = 0; i < intersections.size(); ++i)
+    {
+        delete intersections[i];
+    }
+}

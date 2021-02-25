@@ -20,6 +20,7 @@ public:
     int getMinTime();
     int getNumberOfStreets();
     vector<int> getListOfStreets();
+
     int getIdStreet();
     void setIdStreet(int id);
 
