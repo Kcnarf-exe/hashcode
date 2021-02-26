@@ -1,5 +1,8 @@
 #include "Intersection.h"
 
+#include<algorithm> // pour la fonction swap
+#include <random>
+
 Intersection::Intersection(int id)
 {
     this->id = id;
@@ -76,25 +79,47 @@ void Intersection::setTimeLight(int timeLight)
     this->timeLight = timeLight;
 }
 
+void tri_a_bulle(vector<int> t, vector<int> t2)
+    
+{
+    vector<int> t3;
+    for (int i = 0; i < t.size(); i++){
+        t3.push_back(t[i]);
+    }
+    int size = t3.size();
+	bool en_desordre = true;
+	for (int i = 0; i < size && en_desordre; ++i)
+	{
+		en_desordre = false;
+		for (int j = 1; j < size - i; ++j)
+			if (t3[j-1] > t[j])
+			{
+				swap(t3[j], t3[j-1]);
+                swap(t2[j], t2[j-1]);
+				en_desordre = true;
+ 			}
+	}
+}
+
 void Intersection::generateSchedule(vector<int> counterStreets, int duration)
 {
     vector<pair<int, int>> localSchedule;
     int totalDurationSchedule = 0;
 
-   
 
-    for(int i=0;i<counterStreets.size();++i){
-        if (counterStreets[i] == 0){
+    for(int counterId = 0; counterId < counterStreets.size(); counterId++){
+        if (counterStreets[counterId] == 0){
             continue;
         }
-        if( this->inputStreetIds.find(i) != this->inputStreetIds.end()){
-                pair<int,int> entrySchedule (i,counterStreets[i]);
-                totalDurationSchedule += counterStreets[i];
-                localSchedule.clear();
+        if( this->inputStreetIds.find(counterId) != this->inputStreetIds.end()){
+                pair<int,int> entrySchedule (counterId,(int)(1.5*counterStreets[counterId]));
+                totalDurationSchedule += (int)(1.5*counterStreets[counterId]);
                 localSchedule.push_back(entrySchedule);
             
         }
     }
+
+    random_shuffle(begin(localSchedule), end(localSchedule));
 
     if (totalDurationSchedule > duration)
     { //If there is not enough time to apply the schedule
